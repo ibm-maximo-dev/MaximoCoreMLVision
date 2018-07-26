@@ -1,0 +1,21 @@
+PODS:
+  - MaximoRESTSDK (1.0.3)
+
+DEPENDENCIES:
+  - MaximoRESTSDK (from `https://github.ibm.com/maximo-ohio/maximo-swift-restclient.git`)
+
+EXTERNAL SOURCES:
+  MaximoRESTSDK:
+    :git: https://github.ibm.com/maximo-ohio/maximo-swift-restclient.git
+
+CHECKOUT OPTIONS:
+  MaximoRESTSDK:
+    :commit: 4980807b27e66536c74b7c1b092d488766de5f21
+    :git: https://github.ibm.com/maximo-ohio/maximo-swift-restclient.git
+
+SPEC CHECKSUMS:
+  MaximoRESTSDK: 742fffccb49a9aaa8061f978cbb9d2796834b753
+
+PODFILE CHECKSUM: 12ac1f347501eee3f7ea636ecb43b096dd76a175
+
+COCOAPODS: 1.5.0

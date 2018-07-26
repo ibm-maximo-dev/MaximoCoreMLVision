@@ -1,0 +1,33 @@
+# Custom
+
+# Build generated
+Build/
+DerivedData/
+xcuserdata/
+
+# Other
+.DS_Store
+*.moved-aside
+*.xcuserstate
+
+# Obj-C/Swift specific
+*.hmap
+*.ipa
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager
+Packages/
+.build/
+
+# Carthage
+Carthage/
+
+# Pods 
+Pods/
+# swagger-codegen
+.swagger-codegen-ignore
+.swagger-codegen/
+
