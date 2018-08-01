@@ -55,8 +55,8 @@ public class MaximoAPI {
         do {
             let loggedUser = try login(userName: self.maxID!, password: self.maxPassword!,
                                        host: self.host!, port: self.port!)
-            print("Maximo Login Successful: ")
-            connectionStatus = "Maximo: Login Successful to \(host):\(port)"
+            print("Maximo Login Successful ")
+            connectionStatus = "Maximo: Login Successful"
             connected = true
         }
         catch OslcError.loginFailure(let error) {

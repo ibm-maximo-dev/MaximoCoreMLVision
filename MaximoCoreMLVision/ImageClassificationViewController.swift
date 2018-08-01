@@ -33,7 +33,7 @@ class ImageClassificationViewController: UIViewController {
     //    var apiKey = "25a8eIbk99b2xb05WUzrLP9Qqe_CAk2-_Iz6o91luMHG"
     //    let classifierId = "DefaultCustomModel_1423968048"
     var apiKey = "bd7c6815fafd62f286e6c7970dc72bfb4f3e1c04"
-    let classifierId = "NYMTA3_1771885209"
+    var classifierId = "NYMTA3_1771885209"
     let version = "2018-06-07"
     var maximoUrl = "http://localhost:9080/maximo"
     var maximoAdminID = ""
@@ -47,25 +47,64 @@ class ImageClassificationViewController: UIViewController {
             self.apiKey = apiKey
         }
         self.visualRecognition = VisualRecognition(apiKey: apiKey, version: version)
-        
+
+        if let classifiers = defaults.string(forKey: "WatsonVRClassifiers") {
+            self.classifierId = classifiers
+        }
+
         if let maximoUrl = defaults.string(forKey: "MaximoURL") {
             self.maximoUrl = maximoUrl
         }
         
+        getClassifierDetails(apiKey: self.apiKey, classifierID: self.classifierId)
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        // If VR API Key has changed, re-create visualRecognition
+        if let apiKey = defaults.string(forKey: "WatsonVRAPIKey") {
+            if self.apiKey != apiKey {
+                self.apiKey = apiKey
+                self.visualRecognition = VisualRecognition(apiKey: apiKey, version: version)
+            }
+        }
+        // Check for updated classifier ID
+        if let classifiers = defaults.string(forKey: "WatsonVRClassifiers") {
+            if self.classifierId != classifiers {
+                self.classifierId = classifiers
+
+            }
+        }
         // Pull down model if none on device
         let localModels = try? visualRecognition.listLocalModels()
         print(localModels as Any)
-        
         if let models = localModels, models.contains(self.classifierId)  {
             self.currentModelLabel.text = "Current Model: \(self.classifierId)"
         } else {
             self.invokeModelUpdate()
         }
         
-        getClassifierDetails(apiKey: self.apiKey, classifierID: self.classifierId)
+        var reInitMaxConnector: Bool = false
+        // If Maximo config has changed, re-create maximo object
+        if let maximoUrl = defaults.string(forKey: "MaximoURL") {
+            if self.maximoUrl != maximoUrl {
+                reInitMaxConnector = true
+            }
+        }
+        if let maxId = defaults.string(forKey: "MaximoAdminID") {
+            if self.maximoAdminID != maxId {
+                reInitMaxConnector = true
+            }
+        }
+        if let maxPassword = defaults.string(forKey: "MaximoURL") {
+            if self.maximoPassword != maxPassword {
+                reInitMaxConnector = true
+            }
+        }
+        if reInitMaxConnector == true {
+            MaximoAPI.shared().initFromDefaults()
+            let maxMsg = MaximoAPI.shared().connectionStatus
+            self.maxConnLabel.text = maxMsg
+        }
     }
     
     //MARK: - Model Methods
@@ -76,10 +115,10 @@ class ImageClassificationViewController: UIViewController {
             print(error)
             let descriptError = error as NSError
             DispatchQueue.main.async {
-                self.currentModelLabel.text = descriptError.code == 401 ? "Error updating model: Invalid Credentials" : "Error updating model"
+                self.currentModelLabel.text = descriptError.code == 401 ? "Error updating model: Invalid Credentials" : descriptError.localizedDescription
                 SwiftSpinner.hide()
             }
-            self.useLocalModels = false
+            self.useLocalModels = true
         }
         
         let success = {
@@ -87,12 +126,12 @@ class ImageClassificationViewController: UIViewController {
                 self.currentModelLabel.text = "Current Model: \(self.classifierId)"
                 SwiftSpinner.hide()
             }
-            self.useLocalModels = true
+            self.useLocalModels = false
         }
         
         SwiftSpinner.show("Compiling model...")
         
-        visualRecognition.updateLocalModel(classifierID: classifierId, failure: failure, success: success)
+        visualRecognition.updateLocalModel(classifierID: self.classifierId, failure: failure, success: success)
     }
     
     
@@ -110,7 +149,7 @@ class ImageClassificationViewController: UIViewController {
             return
         }
         
-        let photoSourcePicker = UIAlertController()
+        let photoSourcePicker = UIAlertController(title: nil, message: "Take/Choose Photo", preferredStyle: .alert)
         let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { [unowned self] _ in
             self.presentPhotoPicker(sourceType: .camera)
         }
@@ -143,7 +182,7 @@ class ImageClassificationViewController: UIViewController {
             self.showAlert("Could not classify image", alertMessage: error.localizedDescription)
         }
         let recognized = { (classifiedImages: ClassifiedImages) in
-            //print(classifiedImages)
+            print(classifiedImages)
             var topClassification = "None Recognized"
             var topScore = 0.0
             if classifiedImages.images.count > 0 && classifiedImages.images[0].classifiers.count > 0 && classifiedImages.images[0].classifiers[0].classes.count > 0 {
@@ -166,7 +205,7 @@ class ImageClassificationViewController: UIViewController {
                 do {
                     let createMsg = try MaximoAPI.shared().createWorkOrder(workOrder: workorder)
                     print(createMsg)
-                    maxMsg = "Connected"
+                    maxMsg = "Maximo: Connected"
                 }
                 catch OslcError.serverError(let code, let message){
                     maxMsg = "Error creating work order: \(message) with code \(code)"
@@ -203,7 +242,7 @@ class ImageClassificationViewController: UIViewController {
     
     func getClassifierDetails(apiKey: String, classifierID: String) {
         let failure = { (error: Error) in
-            self.showAlert("Could not classify image", alertMessage: error.localizedDescription)
+            self.showAlert("Could not get Classifier Details", alertMessage: error.localizedDescription)
         }
         let success = { (vrclass: Classifier) in
             print(vrclass)

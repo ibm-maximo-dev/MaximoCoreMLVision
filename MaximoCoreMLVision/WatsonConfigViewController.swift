@@ -15,6 +15,8 @@ class WatsonConfigViewController: UITableViewController {
     
     @IBOutlet weak var classifierIDs: UITextField!
     
+    @IBOutlet weak var apiVersion: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadFields()
@@ -29,17 +31,19 @@ class WatsonConfigViewController: UITableViewController {
         if isMovingFromParentViewController {
             defaults.set(apiKey.text, forKey: "WatsonVRAPIKey")
             defaults.set(classifierIDs.text, forKey: "WatsonVRClassifiers")
+            defaults.set(apiVersion.text, forKey: "WatsonVRAPIVersion")
         }
     }
 
     func loadFields() {
         let watsonKey = defaults.string(forKey: "WatsonVRAPIKey") ?? "bd7c6815fafd62f286e6c7970dc72bfb4f3e1c04"
         let watsonVersion = defaults.string(forKey: "WatsonVRAPIVersion") ?? "2018-05-31"
-        let vrClassifiers = defaults.string(forKey: "WatsonVRClassifiers") ?? "TravisIOTWFv2_467145223,LondonBridge_394835703"
+        let vrClassifiers = defaults.string(forKey: "WatsonVRClassifiers") ?? "NYMTA3_1771885209"
         
 
         apiKey.text = watsonKey
         classifierIDs.text = vrClassifiers
+        apiVersion.text = watsonVersion
 
     }
 }
