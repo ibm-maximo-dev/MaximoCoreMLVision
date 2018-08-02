@@ -119,8 +119,8 @@ Now, open the .xcworkspace file by using Xcode, and you are all ready to go.
 1. Open `MaximoCoreMLVision.xcworkspace` in Xcode.
 1. Select MaximoCoreMLVision project and select MaximoCoreMLVision schema. Modify the bundle identifier to be unique within your organization. Select appropriate development 'team' and 'Signing Certificate'
 1. Run the application in the simulator or deploy on a device.
-1.1. To run in the simulator, select from the dropdown next to the target on the top menu, the appropriate device, and select the *Run* button
-1.2 To deploy on a device, connect the device to the USB port, select from the dropdown next to the target on the top menu, the device connected, and select the *Run* button
+    1.1. To run in the simulator, select from the dropdown next to the target on the top menu, the appropriate device, and select the *Run* button
+    1.2 To deploy on a device, connect the device to the USB port, select from the dropdown next to the target on the top menu, the device connected, and select the *Run* button
 
 ### Copy your Model ID and API Key
 1.  In Watson Studio on the custom model overview page, click your Visual Recognition instance name (it's next to Associated Service).
@@ -141,7 +141,7 @@ Now, open the .xcworkspace file by using Xcode, and you are all ready to go.
 1. Enter *Admin ID* and *Admin Password*
 1. Select *Back* link on the top menu
 
-### Finally, run classification
+### Finally..... 
 1. Classify an image by clicking the camera icon and selecting a photo from your photo library. To add a custom image in the simulator, drag the image from the Finder to the simulator window.
 1. Pull new versions of the visual recognition model with the refresh button in the bottom right.
 
