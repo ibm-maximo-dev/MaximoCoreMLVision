@@ -19,6 +19,26 @@ class WatsonConfigViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let path = Bundle.main.path(forResource: "config", ofType: "plist"), let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
+            if let watsonDict = dict["WatsonConfig"] {
+                if let value = watsonDict["WatsonVRAPIKey"] {
+                    defaults.set(value, forKey: "WatsonVRAPIKey")
+                }
+                if let value = watsonDict["WatsonVRClassifiers"] {
+                    defaults.set(value, forKey: "WatsonVRClassifiers")
+                }
+                if let value = watsonDict["WatsonVRAPIVersion"] {
+                    defaults.set(value, forKey: "WatsonVRAPIVersion")
+                }
+                if let value = watsonDict["WatsonVRClasses"] {
+                    defaults.set(value, forKey: "WatsonVRClasses")
+                }
+                if let value = watsonDict["WatsonVRConfidenceScore"] {
+                    defaults.set(value, forKey: "WatsonVRConfidenceScore")
+                }
+                print(watsonDict)
+            }
+        }
         loadFields()
     }
     
@@ -36,9 +56,9 @@ class WatsonConfigViewController: UITableViewController {
     }
 
     func loadFields() {
-        let watsonKey = defaults.string(forKey: "WatsonVRAPIKey") ?? "bd7c6815fafd62f286e6c7970dc72bfb4f3e1c04"
-        let watsonVersion = defaults.string(forKey: "WatsonVRAPIVersion") ?? "2018-05-31"
-        let vrClassifiers = defaults.string(forKey: "WatsonVRClassifiers") ?? "NYMTA3_1771885209"
+        let watsonKey = defaults.string(forKey: "WatsonVRAPIKey") ?? ""
+        let watsonVersion = defaults.string(forKey: "WatsonVRAPIVersion") ?? ""
+        let vrClassifiers = defaults.string(forKey: "WatsonVRClassifiers") ?? ""
         
 
         apiKey.text = watsonKey

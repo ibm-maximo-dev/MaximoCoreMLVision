@@ -19,6 +19,20 @@ class MaximoConfigViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let path = Bundle.main.path(forResource: "config", ofType: "plist"), let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
+            if let maxDict = dict["MaximoConfig"] {
+                if let value = maxDict["MaximoURL"] {
+                    defaults.set(value, forKey: "MaximoURL")
+                }
+                if let value = maxDict["MaximoAdminID"] {
+                    defaults.set(value, forKey: "MaximoAdminID")
+                }
+                if let value = maxDict["MaximoAdminPassword"] {
+                    defaults.set(value, forKey: "MaximoAdminPassword")
+                }
+                print(maxDict)
+            }
+        }
         loadFields()
     }
     
@@ -37,15 +51,9 @@ class MaximoConfigViewController: UITableViewController {
     }
     func loadFields() {
         let maxURL = defaults.string(forKey: "MaximoURL") ?? "http://127.0.0.1:9080/maximo"
-        let maximoAdminStr = defaults.string(forKey: "MaximoAdminID") ?? "wilson"
-        let maximoPwd = defaults.string(forKey: "MaximoAdminPassword") ?? "wilson"
-/*
-         let watsonKey = defaults.string(forKey: "WatsonVRAPIKey") ?? "bd7c6815fafd62f286e6c7970dc72bfb4f3e1c04"
-         let watsonVersion = defaults.string(forKey: "WatsonVRAPIVersion") ?? "2018-05-31"
-         let vrClassifiers = defaults.string(forKey: "WatsonVRClassifiers") ?? "TravisIOTWFv2_467145223,LondonBridge_394835703"
-        apiKey.text = watsonKey
-        classifierId.text = vrClassifiers
-*/
+        let maximoAdminStr = defaults.string(forKey: "MaximoAdminID") ?? ""
+        let maximoPwd = defaults.string(forKey: "MaximoAdminPassword") ?? ""
+
         url.text = maxURL
         adminID.text = maximoAdminStr
         password.text = maximoPwd

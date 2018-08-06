@@ -32,8 +32,8 @@ class ImageClassificationViewController: UIViewController {
     @IBOutlet weak var maxConnLabel: UILabel!
     //    var apiKey = "25a8eIbk99b2xb05WUzrLP9Qqe_CAk2-_Iz6o91luMHG"
     //    let classifierId = "DefaultCustomModel_1423968048"
-    var apiKey = "bd7c6815fafd62f286e6c7970dc72bfb4f3e1c04"
-    var classifierId = "NYMTA3_1771885209"
+    var apiKey = ""
+    var classifierId = ""
     let version = "2018-06-07"
     var maximoUrl = "http://localhost:9080/maximo"
     var maximoAdminID = ""
@@ -45,18 +45,14 @@ class ImageClassificationViewController: UIViewController {
         super.viewDidLoad()
         if let apiKey = defaults.string(forKey: "WatsonVRAPIKey") {
             self.apiKey = apiKey
+            self.visualRecognition = VisualRecognition(apiKey: apiKey, version: version)
+            if let classifiers = defaults.string(forKey: "WatsonVRClassifiers") {
+                self.classifierId = classifiers
+                getClassifierDetails(apiKey: self.apiKey, classifierID: self.classifierId)
+            }
         }
-        self.visualRecognition = VisualRecognition(apiKey: apiKey, version: version)
+        initMaximo()
 
-        if let classifiers = defaults.string(forKey: "WatsonVRClassifiers") {
-            self.classifierId = classifiers
-        }
-
-        if let maximoUrl = defaults.string(forKey: "MaximoURL") {
-            self.maximoUrl = maximoUrl
-        }
-        
-        getClassifierDetails(apiKey: self.apiKey, classifierID: self.classifierId)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,37 +70,17 @@ class ImageClassificationViewController: UIViewController {
 
             }
         }
+        if let vr = self.visualRecognition {
         // Pull down model if none on device
-        let localModels = try? visualRecognition.listLocalModels()
-        print(localModels as Any)
-        if let models = localModels, models.contains(self.classifierId)  {
-            self.currentModelLabel.text = "Current Model: \(self.classifierId)"
-        } else {
-            self.invokeModelUpdate()
-        }
-        
-        var reInitMaxConnector: Bool = false
-        // If Maximo config has changed, re-create maximo object
-        if let maximoUrl = defaults.string(forKey: "MaximoURL") {
-            if self.maximoUrl != maximoUrl {
-                reInitMaxConnector = true
+            let localModels = try? vr.listLocalModels()
+            print(localModels as Any)
+            if let models = localModels, models.contains(self.classifierId)  {
+                self.currentModelLabel.text = "Current Model: \(self.classifierId)"
+            } else {
+                self.invokeModelUpdate()
             }
         }
-        if let maxId = defaults.string(forKey: "MaximoAdminID") {
-            if self.maximoAdminID != maxId {
-                reInitMaxConnector = true
-            }
-        }
-        if let maxPassword = defaults.string(forKey: "MaximoURL") {
-            if self.maximoPassword != maxPassword {
-                reInitMaxConnector = true
-            }
-        }
-        if reInitMaxConnector == true {
-            MaximoAPI.shared().initFromDefaults()
-            let maxMsg = MaximoAPI.shared().connectionStatus
-            self.maxConnLabel.text = maxMsg
-        }
+        initMaximo()
     }
     
     //MARK: - Model Methods
@@ -260,6 +236,32 @@ class ImageClassificationViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    func initMaximo() {
+        // If Maximo config has changed, or new, re-create maximo object
+
+        var reInitMaxConnector: Bool = false
+        if let maximoUrl = defaults.string(forKey: "MaximoURL") {
+            self.maximoUrl = maximoUrl
+            reInitMaxConnector = true
+        }
+        if let maxId = defaults.string(forKey: "MaximoAdminID") {
+            if self.maximoAdminID != maxId {
+                reInitMaxConnector = true
+            }
+        }
+        if let maxPassword = defaults.string(forKey: "MaximoURL") {
+            if self.maximoPassword != maxPassword {
+                reInitMaxConnector = true
+            }
+        }
+        if reInitMaxConnector == true {
+            MaximoAPI.shared().initFromDefaults()
+            let maxMsg = MaximoAPI.shared().connectionStatus
+            self.maxConnLabel.text = maxMsg
+        }
+
+
+    }
     
 }
 
