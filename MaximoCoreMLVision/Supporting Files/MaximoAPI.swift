@@ -16,10 +16,10 @@ public class MaximoAPI {
     }()
     var connected: Bool?
     var connectionStatus: String?
-    var host: String?
-    var port: Int?
-    var maxID: String?
-    var maxPassword: String?
+    var host: String? = ""
+    var port: Int? = 80
+    var maxID: String? = ""
+    var maxPassword: String? = ""
     
     var options: Options?
     var connector: MaximoConnector?

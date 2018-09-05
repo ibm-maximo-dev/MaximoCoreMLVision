@@ -17,6 +17,7 @@
 		71C8518020655A9000D855B2 /* VisualRecognitionV3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71C8517F20655A9000D855B2 /* VisualRecognitionV3.framework */; };
 		71C8518120655A9000D855B2 /* VisualRecognitionV3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 71C8517F20655A9000D855B2 /* VisualRecognitionV3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D7F09BD9E56950796557408 /* Pods_MaximoCoreMLVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC834B9BDB12F554C2D8CBE /* Pods_MaximoCoreMLVision.framework */; };
+		F102C98C2113B47400ACB421 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = F102C98B2113B47400ACB421 /* config.plist */; };
 		F1A1442D210691F90041D0E8 /* MaximoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A1442C210691F90041D0E8 /* MaximoAPI.swift */; };
 		F1A1442F210692320041D0E8 /* MaximoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A1442E210692320041D0E8 /* MaximoConfig.swift */; };
 		F1A14431210778F10041D0E8 /* MaximoConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A14430210778F10041D0E8 /* MaximoConfigViewController.swift */; };
@@ -51,6 +52,7 @@
 		BDC3A6ECAD705F73BBCF72E4 /* Pods-MaximoCoreMLVision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MaximoCoreMLVision.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MaximoCoreMLVision/Pods-MaximoCoreMLVision.debug.xcconfig"; sourceTree = "<group>"; };
 		CCC328FBC425307D087D1078 /* Pods-MaximoCoreMLVision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MaximoCoreMLVision.release.xcconfig"; path = "Pods/Target Support Files/Pods-MaximoCoreMLVision/Pods-MaximoCoreMLVision.release.xcconfig"; sourceTree = "<group>"; };
 		CCC834B9BDB12F554C2D8CBE /* Pods_MaximoCoreMLVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MaximoCoreMLVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F102C98B2113B47400ACB421 /* config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
 		F1A1442C210691F90041D0E8 /* MaximoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaximoAPI.swift; sourceTree = "<group>"; };
 		F1A1442E210692320041D0E8 /* MaximoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaximoConfig.swift; sourceTree = "<group>"; };
 		F1A14430210778F10041D0E8 /* MaximoConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaximoConfigViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				2DC5F1361FD5F3200063B2D5 /* Main.storyboard */,
 				F1A14430210778F10041D0E8 /* MaximoConfigViewController.swift */,
 				F1A144322107AE510041D0E8 /* WatsonConfigViewController.swift */,
+				F102C98B2113B47400ACB421 /* config.plist */,
 			);
 			path = MaximoCoreMLVision;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F102C98C2113B47400ACB421 /* config.plist in Resources */,
 				2DC5F1371FD5F3200063B2D5 /* Main.storyboard in Resources */,
 				2DBDD2811FCF7F88004A6DC1 /* LaunchScreen.storyboard in Resources */,
 				2DBDD27E1FCF7F88004A6DC1 /* Assets.xcassets in Resources */,

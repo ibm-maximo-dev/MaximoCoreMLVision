@@ -12,9 +12,9 @@ Classify images with [Watson Visual Recognition](https://www.ibm.com/watson/serv
 Use [our GitHub](https://github.com/ibm-maximo-dev/MaximoCoreMLVision) to clone the repository locally, or download the .zip file of the repository and extract the files.
 
 ## Running MaximoCoreMLVision
-This project builds on the use case of identifying assets and their anamolies in a factory using iOS handheld devices, Watson VR and update anomalies identified to Maximo Asset Management System by creating a work order. 
-This project builds and trains a Visual Recognition model (also called a classifier) to identify different colored balls at a ball manufacturing plant. It uses Apple's Core ML framework to download and manage the trained model locally on the device, uses VR APIs to classify images selected from the device camera or the photo library, and Maximo iOS OSLC SDK APIs to communicate with Maximo, including logging in and creating work orders. 
-Further, this project uses the [Watson Swift SDK](https://github.com/watson-developer-cloud/swift-sdk) to download, manage, and execute the trained model. By using the Watson Swift SDK, you don't have to learn about the underlying Core ML framework. Use [Maximo iOS OSLC SDK](https://github.com/ibm-maximo-dev/maximo-swift-rest-client) client to communicate with Maximo. 
+This project builds on the use case of identifying assets and their anamolies in a factory using iOS handheld devices, Watson VR and update anomalies identified to Maximo Asset Management System by creating a work order.
+This project builds and trains a Visual Recognition model (also called a classifier) to identify different colored balls at a ball manufacturing plant. It uses Apple's Core ML framework to download and manage the trained model locally on the device, uses VR APIs to classify images selected from the device camera or the photo library, and Maximo iOS OSLC SDK APIs to communicate with Maximo, including logging in and creating work orders.
+Further, this project uses the [Watson Swift SDK](https://github.com/watson-developer-cloud/swift-sdk) to download, manage, and execute the trained model. By using the Watson Swift SDK, you don't have to learn about the underlying Core ML framework. Use [Maximo iOS OSLC SDK](https://github.com/ibm-maximo-dev/maximo-swift-rest-client) client to communicate with Maximo.
 
 ### Setting up Visual Recognition in Watson Studio
 1.  Log into [Watson Studio][watson_studio_visrec_tooling]. From this link you can create an IBM Cloud account, sign up for Watson Studio, or log in.
@@ -115,7 +115,7 @@ pod install
 After the dependencies are successfully installed, Cocoapods creates a new <YOUR PROJECT NAME>.xcworkspace file and a Pods folder that contains all the project's dependencies.
 Now, open the .xcworkspace file by using Xcode, and you are all ready to go.
 
-### Building and deploying 
+### Building and deploying
 1. Open `MaximoCoreMLVision.xcworkspace` in Xcode.
 1. Select MaximoCoreMLVision project and select MaximoCoreMLVision schema. Modify the bundle identifier to be unique within your organization. Select appropriate development 'team' and 'Signing Certificate'
 1. Run the application in the simulator or deploy on a device.
@@ -127,7 +127,7 @@ Now, open the .xcworkspace file by using Xcode, and you are all ready to go.
 1.  Scroll down to find the **Custom Core ML** classifier you just created.
 1.  Copy the **Model ID** of the classifier.
 1.  In the Visual Recognition instance overview page in Watson Studio, click the **Credentials** tab, and then click **View credentials**. Copy the `api_key` or the `apikey` of the service.
-1.  Copy the **Model ID** and **api_key** on a sheet of paper, a notepad or any other text editor. 
+1.  Copy the **Model ID** and **api_key** on a sheet of paper, a notepad or any other text editor.
 **Important**: Instantiation with `api_key` works only with Visual Recognition service instances created before May 23, 2018. Visual Recognition instances created after May 22 use IAM.
 
 ### Configure Watson and Maximo
@@ -141,17 +141,17 @@ Now, open the .xcworkspace file by using Xcode, and you are all ready to go.
 1. Enter *Admin ID* and *Admin Password*
 1. Select *Back* link on the top menu
 
-### Finally..... 
+### Finally.....
 1. Classify an image by clicking the camera icon and selecting a photo from your photo library. To add a custom image in the simulator, drag the image from the Finder to the simulator window.
 1. Pull new versions of the visual recognition model with the refresh button in the bottom right.
 
 **Tip:** The classifier status must be `Ready` to use it. Check the classifier status in Watson Studio on the Visual Recognition instance overview page.
-1. By default both Maximo and Watson configurations are set to dummy values. Before running classifications edit both configurations and add correct values.
+1. By default both Maximo and Watson configurations are set to placeholder values. Before running classifications edit both configurations and add correct values.
 
 
 ## What to do next
 
-Create different classifiers for different use cases using [Watson Studio][watson_studio_visrec_tooling], configure this project with the new classifiers and test classifications.
+Create different classifiers for different use cases using [Watson Studio][watson_studio_visrec_tooling], configure this project with the new classifiers, collect or snap images related to the classifiers and test classifications.
 
 ## Resources
 
@@ -166,4 +166,3 @@ Create different classifiers for different use cases using [Watson Studio][watso
 [vizreq_tooling]: https://dataplatform.ibm.com/registration/stepone?context=wdp&apps=watson_studio&target=watson_vision_combined
 [watson_studio_visrec_tooling]: https://dataplatform.ibm.com/registration/stepone?target=watson_vision_combined&context=wdp&apps=watson_studio&cm_sp=WatsonPlatform-WatsonPlatform-_-OnPageNavCTA-IBMWatson_VisualRecognition-_-CoreMLGithub
 [Watson Visual Recognition Tool](https://watson-visual-recognition.ng.bluemix.net/)
-

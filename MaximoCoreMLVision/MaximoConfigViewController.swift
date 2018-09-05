@@ -42,7 +42,8 @@ class MaximoConfigViewController: UITableViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        print("URL: \(url.text ?? "") ")
+        print("adminID: \(adminID.text ?? "") ")
         if isMovingFromParentViewController {
             defaults.set(url.text, forKey: "MaximoURL")
             defaults.set(adminID.text, forKey: "MaximoAdminID")
